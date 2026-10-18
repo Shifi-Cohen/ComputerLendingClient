@@ -10,7 +10,7 @@ npm run dev
 
 האתר נפתח ב-http://localhost:5173. ב-`.env.example` הכתובת היא `http://localhost:5045`, והשרת צריך לרוץ לפני ההתחברות.
 
-משתמשי דמו: `admin@demo.com` / `Admin123!` (Admin), `user@demo.com` / `User123!` (Borrower).
+משתמשי דמו: `admin@demo.com` (Admin) ו-`user@demo.com` (Borrower). הסיסמאות מוגדרות בשרת (`Seed:AdminPassword` ו-`Seed:BorrowerPassword`), לא בקוד הלקוח.
 
 ## העלאה ל-Render
 
