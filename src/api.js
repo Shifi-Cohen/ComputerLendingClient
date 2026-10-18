@@ -5,7 +5,12 @@ export function loadSession() {
   const token = localStorage.getItem(TOKEN_KEY)
   const userRaw = localStorage.getItem(USER_KEY)
   if (!token || !userRaw) return null
-  return { token, ...JSON.parse(userRaw) }
+  try {
+    return { token, ...JSON.parse(userRaw) }
+  } catch {
+    clearSession()
+    return null
+  }
 }
 
 export function saveSession(auth) {
@@ -42,10 +47,23 @@ export async function api(path, { method = 'GET', body, token } = {}) {
   })
 
   const text = await response.text()
-  const data = text ? JSON.parse(text) : null
+  let data = null
+  if (text) {
+    try {
+      data = JSON.parse(text)
+    } catch {
+      data = text
+    }
+  }
 
   if (!response.ok) {
-    throw new ApiError(response.status, data?.message || 'הבקשה נכשלה.')
+    const validationMessage = data?.errors
+      ? Object.values(data.errors).flat().join(' ')
+      : ''
+    throw new ApiError(
+      response.status,
+      data?.message || validationMessage || data?.title || 'הבקשה נכשלה.',
+    )
   }
 
   return data

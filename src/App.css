@@ -1,5 +1,5 @@
 .app {
-  max-width: 760px;
+  max-width: 1080px;
   margin: 0 auto;
   padding: 32px 20px 64px;
 }
@@ -25,7 +25,12 @@ h1 {
 
 h2 {
   margin: 0 0 8px;
-  font-size: 1.15rem;
+  font-size: 1.3rem;
+}
+
+h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
 }
 
 .who {
@@ -35,7 +40,11 @@ h2 {
 }
 
 .role {
-  color: #6b6258;
+  color: #2f4a3c;
+  background: #e1ebe5;
+  border-radius: 999px;
+  padding: 4px 9px;
+  font-size: 0.85rem;
 }
 
 .card {
@@ -57,12 +66,19 @@ label {
   font-size: 0.9rem;
 }
 
-input {
+input,
+select,
+textarea {
   font: inherit;
   padding: 8px 10px;
   border: 1px solid #cfc6bb;
   border-radius: 8px;
   background: #fff;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
 }
 
 button {
@@ -88,12 +104,41 @@ button.link {
   text-align: right;
 }
 
-.toolbar {
+.secondary,
+.pager button,
+.tabs button {
+  background: #fff;
+  color: #2f4a3c;
+}
+
+.danger {
+  background: #8c3328;
+  border-color: #8c3328;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd4c9;
+}
+
+.tabs button.active {
+  background: #2f4a3c;
+  color: #fff;
+}
+
+.section-heading {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  align-items: end;
+  align-items: center;
   margin-bottom: 16px;
+}
+
+.section-heading h2 {
+  margin-bottom: 4px;
 }
 
 .hint,
@@ -104,6 +149,29 @@ button.link {
   font-size: 0.9rem;
 }
 
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  align-items: end;
+  margin-bottom: 20px;
+  padding: 14px;
+  background: #eee8df;
+  border-radius: 12px;
+}
+
+.checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+}
+
+.checkbox input {
+  width: auto;
+}
+
 .list {
   list-style: none;
   margin: 0;
@@ -112,11 +180,24 @@ button.link {
   gap: 12px;
 }
 
-.computer {
+.computer,
+.loan {
   display: flex;
   justify-content: space-between;
   gap: 16px;
   align-items: center;
+}
+
+.computer > div:first-child,
+.loan > div:first-child {
+  min-width: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 7px;
 }
 
 .status {
@@ -127,21 +208,34 @@ button.link {
 .status-Available { color: #1f7a45; }
 .status-Loaned { color: #9a4d12; }
 .status-InMaintenance { color: #6b6258; }
+.loan-Active { color: #9a4d12; }
+.loan-Returned { color: #1f7a45; }
 
-.conflict {
+.notice {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+.notice.conflict,
+.notice.error {
   background: #fde8e4;
   border: 1px solid #e3a79d;
   color: #7a2618;
-  border-radius: 10px;
-  padding: 12px 14px;
 }
 
-.success {
+.notice.success {
   background: #e7f6ec;
   border: 1px solid #b7dcc4;
   color: #1f7a45;
-  border-radius: 10px;
-  padding: 12px 14px;
+}
+
+.notice .link {
+  color: inherit;
 }
 
 .form-error {
@@ -157,7 +251,86 @@ button.link {
   margin-top: 16px;
 }
 
-.pager button {
+.detail-panel,
+.editor {
+  margin-top: 20px;
+  border-color: #99aa9f;
+  box-shadow: 0 12px 30px rgb(47 74 60 / 9%);
+}
+
+.editor {
+  display: grid;
+  gap: 13px;
+}
+
+fieldset {
+  border: 1px solid #d8d0c6;
+  border-radius: 9px;
+}
+
+.checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+}
+
+.inline-form {
+  display: flex;
+  gap: 12px;
+  align-items: end;
+  margin-bottom: 16px;
+}
+
+.inline-form label {
+  flex: 1;
+}
+
+.tag-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.tag-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.empty {
+  padding: 32px;
+  text-align: center;
+  color: #6b6258;
   background: #fff;
-  color: #2f4a3c;
+  border: 1px dashed #cfc6bb;
+  border-radius: 12px;
+}
+
+@media (max-width: 680px) {
+  .top,
+  .computer,
+  .loan {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .who {
+    flex-wrap: wrap;
+  }
+
+  .tabs {
+    overflow-x: auto;
+  }
+
+  .tabs button {
+    white-space: nowrap;
+  }
+
+  .actions {
+    justify-content: flex-start;
+  }
 }
